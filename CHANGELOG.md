@@ -1,5 +1,8 @@
 # ChangeLog - Aliyun OSS SDK for PHP
 
+## v2.1.0
+重构了目录
+
 ## v2.0.2
 
 * 修复multipart上传时无法指定Content-Type的问题
