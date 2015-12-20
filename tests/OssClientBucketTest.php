@@ -1,11 +1,9 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\OSSException;
 use Aliyun\OSS\OSSClient;
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'TestOssClientBase.php';
-
-class OssClientBucketTest extends TestOssClientBase
+class OSSClientBucketTest extends TestOSSClientBase
 {
 
     public function testBucketWithInvalidName()
@@ -13,7 +11,7 @@ class OssClientBucketTest extends TestOssClientBase
         try {
             $this->ossClient->createBucket("s");
             $this->assertFalse(true);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertEquals('"s"bucket name is invalid', $e->getMessage());
         }
     }
@@ -24,7 +22,7 @@ class OssClientBucketTest extends TestOssClientBase
         try {
             $this->ossClient->createBucket($this->bucket, "invalid");
             $this->assertFalse(true);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertEquals('invalid:acl is invalid(private,public-read,public-read-write)', $e->getMessage());
         }
     }
@@ -47,7 +45,7 @@ class OssClientBucketTest extends TestOssClientBase
 
         try {
             $this->ossClient->deleteBucket($this->bucket);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertEquals("BucketNotEmpty", $e->getErrorCode());
             $this->assertEquals("409", $e->getHTTPStatus());
         }

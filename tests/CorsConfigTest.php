@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\OSSException;
 use Aliyun\OSS\Model\CorsConfig;
 use Aliyun\OSS\Model\CorsRule;
 
@@ -91,7 +91,7 @@ BBBB;
         try {
             $corsConfig->addRule($rule);
             $this->assertFalse(true);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertEquals($e->getMessage(), "num of rules in the config exceeds self::OSS_MAX_RULES: " . strval(CorsConfig::OSS_MAX_RULES));
         }
     }
@@ -106,7 +106,7 @@ BBBB;
         try {
             $xml = $corsConfig->serializeToXml();
             $this->assertFalse(true);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertEquals($e->getMessage(), "maxAgeSeconds is not set in the Rule");
         }
     }

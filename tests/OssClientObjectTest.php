@@ -1,11 +1,9 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\OSSException;
 use Aliyun\OSS\OSSClient;
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'TestOssClientBase.php';
-
-class OssClientObjectTest extends TestOssClientBase
+class OSSClientObjectTest extends TestOSSClientBase
 {
 
     public function testGetObjectWithHeader()
@@ -14,7 +12,7 @@ class OssClientObjectTest extends TestOssClientBase
         try {
             $res = $this->ossClient->getObject($this->bucket, $object, array( OSSClient::OSS_LAST_MODIFIED => "xx" ));
             $this->assertEquals(file_get_contents(__FILE__), $res);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertEquals('"/ilegal.txt" object name is invalid', $e->getMessage());
         }
     }
@@ -26,7 +24,7 @@ class OssClientObjectTest extends TestOssClientBase
         try {
             $res = $this->ossClient->getObject($this->bucket, $object, array( OSSClient::OSS_ETAG => "xx" ));
             $this->assertEquals(file_get_contents(__FILE__), $res);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertEquals('"/ilegal.txt" object name is invalid', $e->getMessage());
         }
     }
@@ -38,7 +36,7 @@ class OssClientObjectTest extends TestOssClientBase
         try {
             $this->ossClient->putObject($this->bucket, $object, "hi", null);
             $this->assertFalse(true);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertEquals('"/ilegal.txt" object name is invalid', $e->getMessage());
         }
     }
@@ -66,21 +64,21 @@ class OssClientObjectTest extends TestOssClientBase
 
         try {
             $this->ossClient->putObject($this->bucket, $object, $content, $options);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertFalse(true);
         }
 
         try {
             $this->ossClient->deleteObjects($this->bucket, "stringtype", $options);
             $this->assertFalse(true);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertEquals('objects must be array', $e->getMessage());
         }
 
         try {
             $this->ossClient->uploadFile($this->bucket, $object, "notexist.txt", $options);
             $this->assertFalse(true);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertEquals('notexist.txt file does not exist', $e->getMessage());
         }
 
@@ -90,7 +88,7 @@ class OssClientObjectTest extends TestOssClientBase
         try {
             $content = $this->ossClient->getObject($this->bucket, $object);
             $this->assertEquals($content, file_get_contents(__FILE__));
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertFalse(true);
         }
 
@@ -101,7 +99,7 @@ class OssClientObjectTest extends TestOssClientBase
             $options = array( OSSClient::OSS_RANGE => '0-4' );
             $content = $this->ossClient->getObject($this->bucket, $object, $options);
             $this->assertEquals($content, '<?php');
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertFalse(true);
         }
 
@@ -110,7 +108,7 @@ class OssClientObjectTest extends TestOssClientBase
          */
         try {
             $this->ossClient->uploadFile($this->bucket, $object, __FILE__);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertFalse(true);
         }
 
@@ -120,7 +118,7 @@ class OssClientObjectTest extends TestOssClientBase
         try {
             $content = $this->ossClient->getObject($this->bucket, $object);
             $this->assertEquals($content, file_get_contents(__FILE__));
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertFalse(true);
         }
 
@@ -134,7 +132,7 @@ class OssClientObjectTest extends TestOssClientBase
 
         try {
             $this->ossClient->getObject($this->bucket, $object, $options);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertFalse(true);
         }
         $this->assertTrue(file_get_contents($localfile) === file_get_contents(__FILE__));
@@ -150,7 +148,7 @@ class OssClientObjectTest extends TestOssClientBase
         $options   = array();
         try {
             $this->ossClient->copyObject($this->bucket, $object, $to_bucket, $to_object, $options);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertFalse(true);
             var_dump($e->getMessage());
 
@@ -162,7 +160,7 @@ class OssClientObjectTest extends TestOssClientBase
         try {
             $content = $this->ossClient->getObject($this->bucket, $to_object);
             $this->assertEquals($content, file_get_contents(__FILE__));
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertFalse(true);
         }
 
@@ -189,7 +187,7 @@ class OssClientObjectTest extends TestOssClientBase
             $this->assertTrue(is_array($objectList));
             $this->assertTrue(is_array($prefixList));
 
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertTrue(false);
         }
 
@@ -208,7 +206,7 @@ class OssClientObjectTest extends TestOssClientBase
         );
         try {
             $this->ossClient->copyObject($from_bucket, $from_object, $to_bucket, $to_object, $copy_options);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertFalse(true);
         }
 
@@ -219,7 +217,7 @@ class OssClientObjectTest extends TestOssClientBase
         try {
             $objectMeta = $this->ossClient->getObjectMeta($this->bucket, $object);
             $this->assertEquals('attachment; filename="xxxxxx"', $objectMeta[strtolower('Content-Disposition')]);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertFalse(true);
         }
 
@@ -232,7 +230,7 @@ class OssClientObjectTest extends TestOssClientBase
             $this->assertTrue($this->ossClient->doesObjectExist($this->bucket, $object));
             $this->ossClient->deleteObject($this->bucket, $object);
             $this->assertFalse($this->ossClient->doesObjectExist($this->bucket, $object));
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertFalse(true);
         }
 
@@ -247,7 +245,7 @@ class OssClientObjectTest extends TestOssClientBase
             $this->ossClient->deleteObjects($this->bucket, $list, array( 'quiet' => true ));
             $this->ossClient->deleteObjects($this->bucket, $list, array( 'quiet' => 'true' ));
             $this->assertFalse($this->ossClient->doesObjectExist($this->bucket, $object2));
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertFalse(true);
         }
     }

@@ -1,11 +1,9 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\OSSException;
 use Aliyun\OSS\Model\RefererConfig;
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'TestOssClientBase.php';
-
-class OssClientBucketRefererTest extends TestOssClientBase
+class OSSClientBucketRefererTest extends TestOSSClientBase
 {
 
     public function testBucket()
@@ -15,7 +13,7 @@ class OssClientBucketRefererTest extends TestOssClientBase
 
         try {
             $this->ossClient->putBucketReferer($this->bucket, $refererConfig);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             var_dump($e->getMessage());
             $this->assertTrue(false);
         }
@@ -23,21 +21,21 @@ class OssClientBucketRefererTest extends TestOssClientBase
             sleep(5);
             $refererConfig2 = $this->ossClient->getBucketReferer($this->bucket);
             $this->assertEquals($refererConfig->serializeToXml(), $refererConfig2->serializeToXml());
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertTrue(false);
         }
         try {
             $nullRefererConfig = new RefererConfig();
             $nullRefererConfig->setAllowEmptyReferer(false);
             $this->ossClient->putBucketReferer($this->bucket, $nullRefererConfig);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertTrue(false);
         }
         try {
             sleep(5);
             $refererConfig3 = $this->ossClient->getBucketLogging($this->bucket);
             $this->assertNotEquals($refererConfig->serializeToXml(), $refererConfig3->serializeToXml());
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertTrue(false);
         }
     }

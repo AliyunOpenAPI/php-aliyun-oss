@@ -1,11 +1,9 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\OSSException;
 use Aliyun\OSS\Model\LoggingConfig;
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'TestOssClientBase.php';
-
-class OssClientBucketLoggingTest extends TestOssClientBase
+class OSSClientBucketLoggingTest extends TestOSSClientBase
 {
 
     public function testBucket()
@@ -13,7 +11,7 @@ class OssClientBucketLoggingTest extends TestOssClientBase
         $loggingConfig = new LoggingConfig($this->bucket, 'prefix');
         try {
             $this->ossClient->putBucketLogging($this->bucket, $this->bucket, 'prefix');
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             var_dump($e->getMessage());
             $this->assertTrue(false);
         }
@@ -21,19 +19,19 @@ class OssClientBucketLoggingTest extends TestOssClientBase
             sleep(2);
             $loggingConfig2 = $this->ossClient->getBucketLogging($this->bucket);
             $this->assertEquals($loggingConfig->serializeToXml(), $loggingConfig2->serializeToXml());
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertTrue(false);
         }
         try {
             $this->ossClient->deleteBucketLogging($this->bucket);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertTrue(false);
         }
         try {
             sleep(3);
             $loggingConfig3 = $this->ossClient->getBucketLogging($this->bucket);
             $this->assertNotEquals($loggingConfig->serializeToXml(), $loggingConfig3->serializeToXml());
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertTrue(false);
         }
     }

@@ -1,12 +1,10 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\OSSException;
 use Aliyun\OSS\Model\CorsConfig;
 use Aliyun\OSS\Model\CorsRule;
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'TestOssClientBase.php';
-
-class OssClientBucketCorsTest extends TestOssClientBase
+class OSSClientBucketCorsTest extends TestOSSClientBase
 {
 
     public function testBucket()
@@ -38,7 +36,7 @@ class OssClientBucketCorsTest extends TestOssClientBase
 
         try {
             $this->ossClient->putBucketCors($this->bucket, $corsConfig);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertFalse(true);
         }
 
@@ -47,7 +45,7 @@ class OssClientBucketCorsTest extends TestOssClientBase
             $this->ossClient->putObject($this->bucket, $object, file_get_contents(__FILE__));
             $headers = $this->ossClient->optionsObject($this->bucket, $object, "http://www.a.com", "GET", "", null);
             $this->assertNotEmpty($headers);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             var_dump($e->getMessage());
         }
 
@@ -56,13 +54,13 @@ class OssClientBucketCorsTest extends TestOssClientBase
             $corsConfig2 = $this->ossClient->getBucketCors($this->bucket);
             $this->assertNotNull($corsConfig2);
             $this->assertEquals($corsConfig->serializeToXml(), $corsConfig2->serializeToXml());
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertFalse(true);
         }
 
         try {
             $this->ossClient->deleteBucketCors($this->bucket);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertFalse(true);
         }
 
@@ -71,7 +69,7 @@ class OssClientBucketCorsTest extends TestOssClientBase
             $corsConfig3 = $this->ossClient->getBucketCors($this->bucket);
             $this->assertNotNull($corsConfig3);
             $this->assertNotEquals($corsConfig->serializeToXml(), $corsConfig3->serializeToXml());
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertFalse(true);
         }
 

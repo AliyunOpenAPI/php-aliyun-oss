@@ -7,7 +7,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testByFileName()
     {
-        $client = Common::getOssClient();
+        $client = Common::getOSSClient();
         $bucket = Common::getBucketName();
 
         $file   = '/tmp/x.html';
@@ -42,7 +42,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testByObjectKey()
     {
-        $client = Common::getOssClient();
+        $client = Common::getOSSClient();
         $bucket = Common::getBucketName();
 
         $object = "test/x.txt";
@@ -91,7 +91,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testByUser()
     {
-        $client = Common::getOssClient();
+        $client = Common::getOSSClient();
         $bucket = Common::getBucketName();
 
         $object = "test/x.txt";

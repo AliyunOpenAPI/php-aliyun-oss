@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\OSSException;
 use Aliyun\OSS\Model\LifecycleAction;
 use Aliyun\OSS\Model\LifecycleConfig;
 use Aliyun\OSS\Model\LifecycleRule;
@@ -60,7 +60,7 @@ BBBB;
         try {
             $lifecycleConfig->addRule(null);
             $this->assertFalse(true);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertEquals('lifecycleRule is null', $e->getMessage());
         }
         $this->assertEquals($this->cleanXml(strval($lifecycleConfig)), $this->cleanXml($this->validLifecycle));

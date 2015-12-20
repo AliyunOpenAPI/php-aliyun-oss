@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\OSSException;
 use Aliyun\OSS\Http\ResponseCore;
 use Aliyun\OSS\Result\UploadPartResult;
 
@@ -27,7 +27,7 @@ class UploadPartResultTest extends \PHPUnit_Framework_TestCase
         try {
             new UploadPartResult($response);
             $this->assertTrue(false);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertEquals('cannot get ETag', $e->getMessage());
         }
     }

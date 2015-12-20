@@ -603,7 +603,7 @@ class RequestCore
         // If we're at the beginning of an upload and need to seek...
         if ($this->read_stream_read == 0 && isset( $this->seek_position ) && $this->seek_position !== ftell($this->read_stream)) {
             if (fseek($this->read_stream, $this->seek_position) !== 0) {
-                throw new RequestCore_Exception('The stream does not support seeking and is either not at the requested position or the position is unknown.');
+                throw new RequestCoreException('The stream does not support seeking and is either not at the requested position or the position is unknown.');
             }
         }
 
@@ -669,7 +669,7 @@ class RequestCore
         $this->response = curl_exec($curl_handle);
 
         if ($this->response === false) {
-            throw new RequestCore_Exception('cURL resource: ' . (string) $curl_handle . '; cURL error: ' . curl_error($curl_handle) . ' (' . curl_errno($curl_handle) . ')');
+            throw new RequestCoreException('cURL resource: ' . (string) $curl_handle . '; cURL error: ' . curl_error($curl_handle) . ' (' . curl_errno($curl_handle) . ')');
         }
 
         $parsed_response = $this->process_response($curl_handle, $this->response);
@@ -777,7 +777,7 @@ class RequestCore
                 curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, 'PUT');
                 if (isset( $this->read_stream )) {
                     if ( ! isset( $this->read_stream_size ) || $this->read_stream_size < 0) {
-                        throw new RequestCore_Exception('The stream size for the streaming upload cannot be determined.');
+                        throw new RequestCoreException('The stream size for the streaming upload cannot be determined.');
                     }
                     curl_setopt($curl_handle, CURLOPT_INFILESIZE, $this->read_stream_size);
                     curl_setopt($curl_handle, CURLOPT_UPLOAD, true);
@@ -941,7 +941,7 @@ class RequestCore
             while ($done = curl_multi_info_read($multi_handle)) {
                 // Since curl_errno() isn't reliable for handles that were in multirequests, we check the 'result' of the info read, which contains the curl error number, (listed here http://curl.haxx.se/libcurl/c/libcurl-errors.html )
                 if ($done['result'] > 0) {
-                    throw new RequestCore_Exception('cURL resource: ' . (string) $done['handle'] . '; cURL error: ' . curl_error($done['handle']) . ' (' . $done['result'] . ')');
+                    throw new RequestCoreException('cURL resource: ' . (string) $done['handle'] . '; cURL error: ' . curl_error($done['handle']) . ' (' . $done['result'] . ')');
                 } // Because curl_multi_info_read() might return more than one message about a request, we check to see if this request is already in our array of completed requests
                 elseif ( ! isset( $to_process[(int) $done['handle']] )) {
                     $to_process[(int) $done['handle']] = $done;

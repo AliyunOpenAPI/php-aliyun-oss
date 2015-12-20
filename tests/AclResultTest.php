@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\OSSException;
 use Aliyun\OSS\Http\ResponseCore;
 use Aliyun\OSS\Result\AclResult;
 
@@ -41,7 +41,7 @@ BBBB;
         try {
             new AclResult($response);
             $this->assertTrue(false);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertEquals('body is null', $e->getMessage());
         }
     }
@@ -53,7 +53,7 @@ BBBB;
         try {
             new AclResult($response);
             $this->assertFalse(true);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
             $this->assertEquals("xml format exception", $e->getMessage());
         }
     }

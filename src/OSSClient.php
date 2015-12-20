@@ -4,7 +4,7 @@ use Aliyun\OSS\Core\MimeTypes;
 use Aliyun\OSS\Core\OssException;
 use Aliyun\OSS\Core\OssUtil;
 use Aliyun\OSS\Http\RequestCore;
-use Aliyun\OSS\Http\RequestCore_Exception;
+use Aliyun\OSS\Http\RequestCoreException;
 use Aliyun\OSS\Http\ResponseCore;
 use Aliyun\OSS\Model\BucketListInfo;
 use Aliyun\OSS\Model\CorsConfig;
@@ -1533,7 +1533,7 @@ class OSSClient
      *
      * @return ResponseCore
      * @throws OssException
-     * @throws RequestCore_Exception
+     * @throws RequestCoreException
      */
     private function auth($options)
     {
@@ -1661,7 +1661,7 @@ class OSSClient
 
         try {
             $request->send_request();
-        } catch (RequestCore_Exception $e) {
+        } catch (RequestCoreException $e) {
             throw(new OssException('RequestCoreException: ' . $e->getMessage()));
         }
         $response_header                       = $request->get_response_header();

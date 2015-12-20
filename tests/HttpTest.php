@@ -1,7 +1,7 @@
 <?php namespace Aliyun\OSS\Test;
 
 use Aliyun\OSS\Http\RequestCore;
-use Aliyun\OSS\Http\RequestCore_Exception;
+use Aliyun\OSS\Http\RequestCoreException;
 use Aliyun\OSS\Http\ResponseCore;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
@@ -32,7 +32,7 @@ class HttpTest extends \PHPUnit_Framework_TestCase
         try {
             $httpResponse = $httpCore->send_request();
             $this->assertTrue(false);
-        } catch (RequestCore_Exception $e) {
+        } catch (RequestCoreException $e) {
 
         }
     }
@@ -82,7 +82,7 @@ class HttpTest extends \PHPUnit_Framework_TestCase
             $httpCore->connect_timeout = 10;
             $httpCore->timeout         = 10;
             $res                       = $httpCore->send_request();
-        } catch (RequestCore_Exception $e) {
+        } catch (RequestCoreException $e) {
             $exception = true;
         }
         $this->assertTrue($exception);

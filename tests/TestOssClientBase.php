@@ -4,7 +4,7 @@ use Aliyun\OSS\OSSClient;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Common.php';
 
-class TestOssClientBase extends \PHPUnit_Framework_TestCase
+class TestOSSClientBase extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -21,7 +21,7 @@ class TestOssClientBase extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->bucket    = Common::getBucketName();
-        $this->ossClient = Common::getOssClient();
+        $this->ossClient = Common::getOSSClient();
         $this->ossClient->createBucket($this->bucket);
     }
 

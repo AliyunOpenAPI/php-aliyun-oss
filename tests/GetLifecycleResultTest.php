@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\OSSException;
 use Aliyun\OSS\Http\ResponseCore;
 use Aliyun\OSS\Result\GetLifecycleResult;
 
@@ -51,7 +51,7 @@ BBBB;
         try {
             new GetLifecycleResult($response);
             $this->assertTrue(false);
-        } catch (OssException $e) {
+        } catch (OSSException $e) {
 
         }
     }
