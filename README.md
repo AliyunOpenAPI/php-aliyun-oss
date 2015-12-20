@@ -43,6 +43,6 @@ composer test
 - [阿里云OSS官方网站](http://oss.aliyun.com)
 - [阿里云OSS官方论坛](http://bbs.aliyun.com)
 - [阿里云OSS官方文档中心](http://www.aliyun.com/product/oss#Docs)
-- 阿里云官方技术支持：[提交工单](https://workorder.console.aliyun.com/#/ticket/createIndex)
+- [阿里云官方技术支持](https://workorder.console.aliyun.com/#/ticket/createIndex)
 
 [releases-page]: https://github.com/aliyun/aliyun-oss-php-sdk/releases
