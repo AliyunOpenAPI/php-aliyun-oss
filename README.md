@@ -1,13 +1,19 @@
 Aliyun OSS SDK for PHP
 ======================
 
-阿里云对象存储（Object Storage Service，简称OSS），是阿里云对外提供的海量、安全、低成本、高可靠的云存储服务。用户可以通过调用API，在任何应用、任何时间、任何地点上传和下载数据，也可以通过用户Web控制台对数据进行简单的管理。OSS适合存放任意文件类型，适合各种网站、开发企业及开发者使用。
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]](LICENSE.md)
+[![Build Status][ico-travis]][link-travis]
+[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
+[![Quality Score][ico-code-quality]][link-code-quality]
+[![Total Downloads][ico-downloads]][link-downloads]
 
+Aliyun OSS SDK for PHP
 
 ## Installation
 
 ``` bash
-$ composer require aliyuncs/oss-sdk-php
+$ composer require lokielse/aliyun-oss
 ```
 
 ## Usage
@@ -27,22 +33,26 @@ $content = "Hello, OSS!";
 $client->putObject($bucket, $object, $content);
 ```
 
-### Result
-
-* Put，Delete类接口，接口返回null，如果没有Exception，即可认为操作成功
-* Get，List类接口，接口返回对应的数据，如果没有Exception，即可认为操作成功
-
-
 ### Testing
 ```
 composer test
 ```
 
-## Contact
+## License
 
-- [阿里云OSS官方网站](http://oss.aliyun.com)
-- [阿里云OSS官方论坛](http://bbs.aliyun.com)
-- [阿里云OSS官方文档中心](http://www.aliyun.com/product/oss#Docs)
-- [阿里云官方技术支持](https://workorder.console.aliyun.com/#/ticket/createIndex)
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[releases-page]: https://github.com/aliyun/aliyun-oss-php-sdk/releases
+[ico-version]: https://img.shields.io/packagist/v/lokielse/aliyun-oss.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/lokielse/aliyun-oss/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/lokielse/aliyun-oss.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/lokielse/aliyun-oss.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/lokielse/aliyun-oss.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/lokielse/aliyun-oss
+[link-travis]: https://travis-ci.org/lokielse/aliyun-oss
+[link-scrutinizer]: https://scrutinizer-ci.com/g/lokielse/aliyun-oss/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/lokielse/aliyun-oss
+[link-downloads]: https://packagist.org/packages/lokielse/aliyun-oss
+[link-author]: https://github.com/lokielse
+[link-contributors]: ../../contributors
