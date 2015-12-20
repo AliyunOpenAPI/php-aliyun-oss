@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Result;
 
-use Aliyun\OSS\Core\OssUtil;
+use Aliyun\OSS\Core\Util;
 use Aliyun\OSS\Model\ListMultipartUploadInfo;
 use Aliyun\OSS\Model\UploadInfo;
 
@@ -24,15 +24,15 @@ class ListMultipartUploadResult extends Result
         $encodingType       = isset( $xml->EncodingType ) ? strval($xml->EncodingType) : "";
         $bucket             = isset( $xml->Bucket ) ? strval($xml->Bucket) : "";
         $keyMarker          = isset( $xml->KeyMarker ) ? strval($xml->KeyMarker) : "";
-        $keyMarker          = OssUtil::decodeKey($keyMarker, $encodingType);
+        $keyMarker          = Util::decodeKey($keyMarker, $encodingType);
         $uploadIdMarker     = isset( $xml->UploadIdMarker ) ? strval($xml->UploadIdMarker) : "";
         $nextKeyMarker      = isset( $xml->NextKeyMarker ) ? strval($xml->NextKeyMarker) : "";
-        $nextKeyMarker      = OssUtil::decodeKey($nextKeyMarker, $encodingType);
+        $nextKeyMarker      = Util::decodeKey($nextKeyMarker, $encodingType);
         $nextUploadIdMarker = isset( $xml->NextUploadIdMarker ) ? strval($xml->NextUploadIdMarker) : "";
         $delimiter          = isset( $xml->Delimiter ) ? strval($xml->Delimiter) : "";
-        $delimiter          = OssUtil::decodeKey($delimiter, $encodingType);
+        $delimiter          = Util::decodeKey($delimiter, $encodingType);
         $prefix             = isset( $xml->Prefix ) ? strval($xml->Prefix) : "";
-        $prefix             = OssUtil::decodeKey($prefix, $encodingType);
+        $prefix             = Util::decodeKey($prefix, $encodingType);
         $maxUploads         = isset( $xml->MaxUploads ) ? intval($xml->MaxUploads) : 0;
         $isTruncated        = isset( $xml->IsTruncated ) ? strval($xml->IsTruncated) : "";
         $listUpload         = array();
@@ -40,7 +40,7 @@ class ListMultipartUploadResult extends Result
         if (isset( $xml->Upload )) {
             foreach ($xml->Upload as $upload) {
                 $key          = isset( $upload->Key ) ? strval($upload->Key) : "";
-                $key          = OssUtil::decodeKey($key, $encodingType);
+                $key          = Util::decodeKey($key, $encodingType);
                 $uploadId     = isset( $upload->UploadId ) ? strval($upload->UploadId) : "";
                 $initiated    = isset( $upload->Initiated ) ? strval($upload->Initiated) : "";
                 $listUpload[] = new UploadInfo($key, $uploadId, $initiated);

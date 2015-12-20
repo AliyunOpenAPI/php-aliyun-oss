@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OSSException;
+use Aliyun\OSS\Core\Exception;
 use Aliyun\OSS\Http\ResponseCore;
 use Aliyun\OSS\Result\GetCorsResult;
 
@@ -61,7 +61,7 @@ BBBB;
         try {
             new GetCorsResult($response);
             $this->assertTrue(false);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
 
         }
     }

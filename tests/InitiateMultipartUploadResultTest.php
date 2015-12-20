@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OSSException;
+use Aliyun\OSS\Core\Exception;
 use Aliyun\OSS\Http\ResponseCore;
 use Aliyun\OSS\Result\InitiateMultipartUploadResult;
 
@@ -39,7 +39,7 @@ BBBB;
         try {
             $result = new InitiateMultipartUploadResult($response);
             $this->assertTrue(false);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
 
         }
     }

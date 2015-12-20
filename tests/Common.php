@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OSSException;
+use Aliyun\OSS\Core\Exception;
 use Aliyun\OSS\OSSClient;
 
 /**
@@ -30,7 +30,7 @@ class Common
         $acl    = OSSClient::OSS_ACL_TYPE_PUBLIC_READ;
         try {
             $ossClient->createBucket($bucket, $acl);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             printf(__FUNCTION__ . ": FAILED\n");
             printf($e->getMessage() . "\n");
 
@@ -49,7 +49,7 @@ class Common
     {
         try {
             $ossClient = new OSSClient(self::accessKeyId, self::accessKeySecret, self::endpoint, false);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             printf(__FUNCTION__ . "creating OSSClient instance: FAILED\n");
             printf($e->getMessage() . "\n");
 

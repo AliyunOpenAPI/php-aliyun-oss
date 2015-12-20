@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OSSException;
+use Aliyun\OSS\Core\Exception;
 use Aliyun\OSS\Http\ResponseCore;
 use Aliyun\OSS\Result\PutSetDeleteResult;
 
@@ -13,7 +13,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
         try {
             new PutSetDeleteResult($response);
             $this->assertFalse(true);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('raw response is null', $e->getMessage());
         }
     }
@@ -35,7 +35,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
         try {
             new PutSetDeleteResult($response);
             $this->assertFalse(true);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
 
         }
     }

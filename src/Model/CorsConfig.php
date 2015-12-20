@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Model;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\Exception;
 
 /**
  * Class CorsConfig
@@ -56,7 +56,7 @@ class CorsConfig implements XmlConfig
      *
      * @param string $strXml
      *
-     * @throws OssException
+     * @throws Exception
      * @return null
      */
     public function parseFromXml($strXml)
@@ -92,12 +92,12 @@ class CorsConfig implements XmlConfig
      *
      * @param CorsRule $rule
      *
-     * @throws OssException
+     * @throws Exception
      */
     public function addRule($rule)
     {
         if (count($this->rules) >= self::OSS_MAX_RULES) {
-            throw new OssException("num of rules in the config exceeds self::OSS_MAX_RULES: " . strval(self::OSS_MAX_RULES));
+            throw new Exception("num of rules in the config exceeds self::OSS_MAX_RULES: " . strval(self::OSS_MAX_RULES));
         }
         $this->rules[] = $rule;
     }

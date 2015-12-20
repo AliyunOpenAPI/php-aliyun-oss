@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Result;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\Exception;
 
 /**
  * Class initiateMultipartUploadResult
@@ -12,7 +12,7 @@ class InitiateMultipartUploadResult extends Result
     /**
      * 结果中获取uploadId并返回
      *
-     * @throws OssException
+     * @throws Exception
      * @return string
      */
     protected function parseDataFromResponse()
@@ -22,6 +22,6 @@ class InitiateMultipartUploadResult extends Result
         if (isset( $xml->UploadId )) {
             return strval($xml->UploadId);
         }
-        throw new OssException("cannot get UploadId");
+        throw new Exception("cannot get UploadId");
     }
 }

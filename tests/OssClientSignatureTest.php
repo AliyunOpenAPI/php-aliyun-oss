@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OSSException;
+use Aliyun\OSS\Core\Exception;
 use Aliyun\OSS\Http\RequestCore;
 use Aliyun\OSS\Http\ResponseCore;
 use Aliyun\OSS\OSSClient;
@@ -15,7 +15,7 @@ class OSSClientSignatureTest extends TestOSSClientBase
         $timeout = 3600;
         try {
             $signedUrl = $this->ossClient->signUrl($this->bucket, $object, $timeout);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertFalse(true);
         }
         sleep(5);
@@ -44,7 +44,7 @@ class OSSClientSignatureTest extends TestOSSClientBase
             $request->send_request();
             $res = new ResponseCore($request->get_response_header(), $request->get_response_body(), $request->get_response_code());
             $this->assertTrue($res->isOK());
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertFalse(true);
         }
     }
@@ -67,7 +67,7 @@ class OSSClientSignatureTest extends TestOSSClientBase
             $request->send_request();
             $res = new ResponseCore($request->get_response_header(), $request->get_response_body(), $request->get_response_code());
             $this->assertTrue($res->isOK());
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertFalse(true);
         }
 
@@ -103,7 +103,7 @@ class OSSClientSignatureTest extends TestOSSClientBase
 
         try {
             $this->ossClient->putObject($this->bucket, $object, $content, $options);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertFalse(true);
         }
     }

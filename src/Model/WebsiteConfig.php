@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Model;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\Exception;
 
 /**
  * Class WebsiteConfig
@@ -49,7 +49,7 @@ class WebsiteConfig implements XmlConfig
      * 把WebsiteConfig序列化成xml
      *
      * @return string
-     * @throws OssException
+     * @throws Exception
      */
     public function serializeToXml()
     {

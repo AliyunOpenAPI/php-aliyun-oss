@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Result;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\Exception;
 
 /**
  * Class UploadPartResult
@@ -13,7 +13,7 @@ class UploadPartResult extends Result
      * 结果中part的ETag
      *
      * @return string
-     * @throws OssException
+     * @throws Exception
      */
     protected function parseDataFromResponse()
     {
@@ -21,7 +21,7 @@ class UploadPartResult extends Result
         if (isset( $header["etag"] )) {
             return $header["etag"];
         }
-        throw new OssException("cannot get ETag");
+        throw new Exception("cannot get ETag");
 
     }
 }

@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Result;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\Exception;
 use Aliyun\OSS\Tests\OssExceptionTest;
 
 /**
@@ -14,19 +14,19 @@ class AclResult extends Result
 
     /**
      * @return string
-     * @throws OssException
+     * @throws Exception
      */
     protected function parseDataFromResponse()
     {
         $content = $this->rawResponse->body;
         if (empty( $content )) {
-            throw new OssException("body is null");
+            throw new Exception("body is null");
         }
         $xml = simplexml_load_string($content);
         if (isset( $xml->AccessControlList->Grant )) {
             return strval($xml->AccessControlList->Grant);
         } else {
-            throw new OssException("xml format exception");
+            throw new Exception("xml format exception");
         }
     }
 }

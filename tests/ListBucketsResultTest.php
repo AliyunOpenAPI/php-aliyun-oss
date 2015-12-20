@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OSSException;
+use Aliyun\OSS\Core\Exception;
 use Aliyun\OSS\Http\ResponseCore;
 use Aliyun\OSS\Result\ListBucketsResult;
 
@@ -85,7 +85,7 @@ BBBB;
         $response  = new ResponseCore($errorHeader, $errorBody, 403);
         try {
             new ListBucketsResult($response);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertEquals($e->getMessage(), 'NoSuchBucket: The specified bucket does not exist. RequestId: 1a2b-3c4d');
             $this->assertEquals($e->getHTTPStatus(), '403');
             $this->assertEquals($e->getRequestId(), '1a2b-3c4d');

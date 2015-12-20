@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Result;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\Exception;
 use Aliyun\OSS\Http\ResponseCore;
 
 /**
@@ -17,12 +17,12 @@ abstract class Result
      *
      * @param $response ResponseCore
      *
-     * @throws OssException
+     * @throws Exception
      */
     public function __construct($response)
     {
         if ($response === null) {
-            throw new OssException("raw response is null");
+            throw new Exception("raw response is null");
         }
         $this->rawResponse = $response;
         $this->parseResponse();
@@ -75,7 +75,7 @@ abstract class Result
 
 
     /**
-     * @throws OssException
+     * @throws Exception
      */
     public function parseResponse()
     {
@@ -96,7 +96,7 @@ abstract class Result
                 'message'    => $message,
                 'body'       => $body
             );
-            throw new OssException($details);
+            throw new Exception($details);
         }
     }
 

@@ -1,13 +1,13 @@
 <?php namespace Aliyun\OSS\Core;
 
 /**
- * Class OssUtil
+ * Class Util
  *
  * Oss工具类，主要供OssClient使用，用户也可以使用本类进行返回结果的格式化
  *
  * @package OSS
  */
-class OssUtil
+class Util
 {
 
     const OSS_CONTENT = 'content';
@@ -170,14 +170,14 @@ class OssUtil
      *
      * @param array $options
      *
-     * @throws OssException
+     * @throws Exception
      * @return boolean
      */
     public static function validateOptions($options)
     {
         //$options
         if ($options != null && ! is_array($options)) {
-            throw new OssException ($options . ':' . 'option must be array');
+            throw new Exception ($options . ':' . 'option must be array');
         }
     }
 
@@ -187,12 +187,12 @@ class OssUtil
      *
      * @param $content string
      *
-     * @throws OssException
+     * @throws Exception
      */
     public static function validateContent($content)
     {
         if (empty( $content )) {
-            throw new OssException("http body content is invalid");
+            throw new Exception("http body content is invalid");
         }
     }
 
@@ -203,13 +203,13 @@ class OssUtil
      * @param  string $name
      * @param  string $errMsg
      *
-     * @throws OssException
+     * @throws Exception
      * @return void
      */
     public static function throwOssExceptionWithMessageIfEmpty($name, $errMsg)
     {
         if (empty( $name )) {
-            throw new OssException($errMsg);
+            throw new Exception($errMsg);
         }
     }
 
@@ -385,7 +385,7 @@ BBB;
         $xml->addChild('Quiet', $quiet);
         foreach ($objects as $object) {
             $sub_object = $xml->addChild('Object');
-            $object     = OssUtil::sReplace($object);
+            $object     = Util::sReplace($object);
             $sub_object->addChild('Key', $object);
         }
 
@@ -497,7 +497,7 @@ BBB;
         if ($encoding == "url") {
             return rawurldecode($key);
         } else {
-            throw new OssException("Unrecognized encoding type: " . $encoding);
+            throw new Exception("Unrecognized encoding type: " . $encoding);
         }
     }
 }

@@ -1,7 +1,7 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OSSException;
-use Aliyun\OSS\Core\OSSUtil;
+use Aliyun\OSS\Core\Exception;
+use Aliyun\OSS\Core\Util;
 use Aliyun\OSS\OSSClient;
 
 class OSSClientMultipartUploadTest extends TestOSSClientBase
@@ -12,7 +12,7 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
         try {
             $this->ossClient->uploadDir($this->bucket, "", "abc/ds/s/s/notexitst");
             $this->assertFalse(true);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertEquals("parameter error: abc/ds/s/s/notexitst is not a directory, please check it", $e->getMessage());
         }
 
@@ -23,14 +23,14 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
     {
         $bigFileName   = __DIR__ . DIRECTORY_SEPARATOR . "/bigfile.tmp";
         $localFilename = __DIR__ . DIRECTORY_SEPARATOR . "/localfile.tmp";
-        OSSUtil::generateFile($bigFileName, 6 * 1024 * 1024);
+        Util::generateFile($bigFileName, 6 * 1024 * 1024);
         $object = 'mpu/multipart-bigfile-test.tmp';
         try {
             $this->ossClient->multiuploadFile($this->bucket, $object, $bigFileName, array( OSSClient::OSS_PART_SIZE => 1 ));
             $options = array( OSSClient::OSS_FILE_DOWNLOAD => $localFilename );
             $this->ossClient->getObject($this->bucket, $object, $options);
             $this->assertEquals(md5_file($bigFileName), md5_file($localFilename));
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             var_dump($e->getMessage());
             $this->assertFalse(true);
         }
@@ -49,7 +49,7 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
          */
         try {
             $upload_id = $this->ossClient->initiateMultipartUpload($this->bucket, $object);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertFalse(true);
         }
         /*
@@ -65,7 +65,7 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
         try {
             $listPartsInfo = $this->ossClient->listParts($this->bucket, $object, $upload_id);
             $this->assertNotNull($listPartsInfo);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertTrue(false);
         }
 
@@ -74,7 +74,7 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
          */
         try {
             $this->ossClient->completeMultipartUpload($this->bucket, $object, $upload_id, $upload_parts);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             var_dump($e->getMessage());
             $this->assertTrue(false);
         }
@@ -92,7 +92,7 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
          */
         try {
             $upload_id = $this->ossClient->initiateMultipartUpload($this->bucket, $object);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertFalse(true);
         }
         /*
@@ -116,13 +116,13 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
                 OSSClient::OSS_CHECK_MD5   => $is_check_md5,
             );
             if ($is_check_md5) {
-                $content_md5                            = OSSUtil::getMd5SumForFile($upload_file, $from_pos, $to_pos);
+                $content_md5                            = Util::getMd5SumForFile($upload_file, $from_pos, $to_pos);
                 $up_options[OSSClient::OSS_CONTENT_MD5] = $content_md5;
             }
             //2. 将每一分片上传到OSS
             try {
                 $response_upload_part[] = $this->ossClient->uploadPart($this->bucket, $object, $upload_id, $up_options);
-            } catch (OSSException $e) {
+            } catch (Exception $e) {
                 $this->assertFalse(true);
             }
         }
@@ -137,7 +137,7 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
         try {
             $listPartsInfo = $this->ossClient->listParts($this->bucket, $object, $upload_id);
             $this->assertNotNull($listPartsInfo);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertTrue(false);
         }
         $this->assertEquals(1, count($listPartsInfo->getListPart()));
@@ -148,13 +148,13 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
             $listMultipartUploadInfo = $listMultipartUploadInfo = $this->ossClient->listMultipartUploads($this->bucket, $options);
             $this->assertNotNull($listMultipartUploadInfo);
             $numOfMultipartUpload1 = count($listMultipartUploadInfo->getUploads());
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertFalse(true);
         }
 
         try {
             $this->ossClient->abortMultipartUpload($this->bucket, $object, $upload_id);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertTrue(false);
         }
 
@@ -163,7 +163,7 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
             $listMultipartUploadInfo = $listMultipartUploadInfo = $this->ossClient->listMultipartUploads($this->bucket, $options);
             $this->assertNotNull($listMultipartUploadInfo);
             $numOfMultipartUpload2 = count($listMultipartUploadInfo->getUploads());
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertFalse(true);
         }
         $this->assertEquals($numOfMultipartUpload1 - 1, $numOfMultipartUpload2);
@@ -178,7 +178,7 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
          */
         try {
             $upload_id = $this->ossClient->initiateMultipartUpload($this->bucket, $object);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertFalse(true);
         }
         /*
@@ -202,13 +202,13 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
                 OSSClient::OSS_CHECK_MD5   => $is_check_md5,
             );
             if ($is_check_md5) {
-                $content_md5                            = OSSUtil::getMd5SumForFile($upload_file, $from_pos, $to_pos);
+                $content_md5                            = Util::getMd5SumForFile($upload_file, $from_pos, $to_pos);
                 $up_options[OSSClient::OSS_CONTENT_MD5] = $content_md5;
             }
             //2. 将每一分片上传到OSS
             try {
                 $response_upload_part[] = $this->ossClient->uploadPart($this->bucket, $object, $upload_id, $up_options);
-            } catch (OSSException $e) {
+            } catch (Exception $e) {
                 $this->assertFalse(true);
             }
         }
@@ -223,7 +223,7 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
         try {
             $listPartsInfo = $this->ossClient->listParts($this->bucket, $object, $upload_id);
             $this->assertNotNull($listPartsInfo);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertTrue(false);
         }
 
@@ -232,7 +232,7 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
          */
         try {
             $this->ossClient->completeMultipartUpload($this->bucket, $object, $upload_id, $upload_parts);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertTrue(false);
         }
     }
@@ -244,7 +244,7 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
         $prefix         = "samples/codes";
         try {
             $this->ossClient->uploadDir($this->bucket, $prefix, $localDirectory);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             var_dump($e->getMessage());
             $this->assertFalse(true);
 
@@ -262,7 +262,7 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
 
         try {
             $this->ossClient->multiuploadFile($this->bucket, $object, $file, $options);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertFalse(true);
         }
     }
@@ -274,7 +274,7 @@ class OSSClientMultipartUploadTest extends TestOSSClientBase
         try {
             $listMultipartUploadInfo = $listMultipartUploadInfo = $this->ossClient->listMultipartUploads($this->bucket, $options);
             $this->assertNotNull($listMultipartUploadInfo);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertFalse(true);
         }
     }

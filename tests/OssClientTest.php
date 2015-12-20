@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OSSException;
+use Aliyun\OSS\Core\Exception;
 use Aliyun\OSS\OSSClient;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Config.php';
@@ -21,7 +21,7 @@ class OSSClientTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals(4, $ossClient->getMaxRetries());
             $ossClient->setTimeout(10);
             $ossClient->setConnectTimeout(20);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             assertFalse(true);
         }
     }
@@ -32,7 +32,7 @@ class OSSClientTest extends \PHPUnit_Framework_TestCase
         try {
             $ossClient = new OSSClient(Config::OSS_ACCESS_ID, "", Config::OSS_ENDPOINT);
             $this->assertFalse(true);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertEquals("access key secret is empty", $e->getMessage());
         }
     }
@@ -43,7 +43,7 @@ class OSSClientTest extends \PHPUnit_Framework_TestCase
         try {
             $ossClient = new OSSClient("", Config::OSS_ACCESS_KEY, Config::OSS_ENDPOINT);
             $this->assertFalse(true);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertEquals("access key id is empty", $e->getMessage());
         }
     }
@@ -54,7 +54,7 @@ class OSSClientTest extends \PHPUnit_Framework_TestCase
         try {
             $ossClient = new OSSClient(Config::OSS_ACCESS_ID, Config::OSS_ACCESS_KEY, "");
             $this->assertFalse(true);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('endpoint is empty', $e->getMessage());
         }
     }
@@ -64,7 +64,7 @@ class OSSClientTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $ossClient = new OSSClient(Config::OSS_ACCESS_ID, Config::OSS_ACCESS_KEY, "123.123.123.1");
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertTrue(false);
         }
     }
@@ -75,7 +75,7 @@ class OSSClientTest extends \PHPUnit_Framework_TestCase
         try {
             $ossClient = new OSSClient(Config::OSS_ACCESS_ID, Config::OSS_ACCESS_KEY, "https://123.123.123.1");
             $this->assertTrue($ossClient->isUseSSL());
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertTrue(false);
         }
     }
@@ -86,7 +86,7 @@ class OSSClientTest extends \PHPUnit_Framework_TestCase
         try {
             $ossClient = new OSSClient(Config::OSS_ACCESS_ID, Config::OSS_ACCESS_KEY, "http://123.123.123.1");
             $this->assertFalse($ossClient->isUseSSL());
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertTrue(false);
         }
     }
@@ -98,7 +98,7 @@ class OSSClientTest extends \PHPUnit_Framework_TestCase
             $ossClient = new OSSClient(Config::OSS_ACCESS_ID, Config::OSS_ACCESS_KEY, "http://123.123.123.1", true);
             $ossClient->listBuckets();
             $this->assertFalse(true);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
 
         }
     }

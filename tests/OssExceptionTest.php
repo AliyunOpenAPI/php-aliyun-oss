@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OSSException;
+use Aliyun\OSS\Core\Exception;
 
 class OSSExceptionTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,7 +10,7 @@ class OSSExceptionTest extends \PHPUnit_Framework_TestCase
         try {
             throw new OSSException("ERR");
             $this->assertTrue(false);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertNotNull($e);
             $this->assertEquals($e->getMessage(), "ERR");
         }

@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Model;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\Exception;
 
 /**
  * Class CorsRule
@@ -140,12 +140,12 @@ class CorsRule
      *
      * @param \SimpleXMLElement $xmlRule
      *
-     * @throws OssException
+     * @throws Exception
      */
     public function appendToXml(&$xmlRule)
     {
         if ( ! isset( $this->maxAgeSeconds )) {
-            throw new OssException("maxAgeSeconds is not set in the Rule");
+            throw new Exception("maxAgeSeconds is not set in the Rule");
         }
         foreach ($this->allowedOrigins as $allowedOrigin) {
             $xmlRule->addChild(CorsConfig::OSS_CORS_ALLOWED_ORIGIN, $allowedOrigin);

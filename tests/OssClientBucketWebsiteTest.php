@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OSSException;
+use Aliyun\OSS\Core\Exception;
 use Aliyun\OSS\Model\WebsiteConfig;
 
 class OSSClientBucketWebsiteTest extends TestOSSClientBase
@@ -13,7 +13,7 @@ class OSSClientBucketWebsiteTest extends TestOSSClientBase
 
         try {
             $this->ossClient->putBucketWebsite($this->bucket, $websiteConfig);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             var_dump($e->getMessage());
             $this->assertTrue(false);
         }
@@ -22,19 +22,19 @@ class OSSClientBucketWebsiteTest extends TestOSSClientBase
             sleep(2);
             $websiteConfig2 = $this->ossClient->getBucketWebsite($this->bucket);
             $this->assertEquals($websiteConfig->serializeToXml(), $websiteConfig2->serializeToXml());
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertTrue(false);
         }
         try {
             $this->ossClient->deleteBucketWebsite($this->bucket);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertTrue(false);
         }
         try {
             sleep(1);
             $websiteConfig3 = $this->ossClient->getBucketLogging($this->bucket);
             $this->assertNotEquals($websiteConfig->serializeToXml(), $websiteConfig3->serializeToXml());
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertTrue(false);
         }
     }

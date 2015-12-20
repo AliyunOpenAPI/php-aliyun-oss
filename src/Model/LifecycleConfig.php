@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Model;
 
-use Aliyun\OSS\Core\OssException;
+use Aliyun\OSS\Core\Exception;
 
 /**
  * Class BucketLifecycleConfig
@@ -21,7 +21,7 @@ class LifecycleConfig implements XmlConfig
      *
      * @param string $strXml
      *
-     * @throws OssException
+     * @throws Exception
      * @return null
      */
     public function parseFromXml($strXml)
@@ -63,12 +63,12 @@ class LifecycleConfig implements XmlConfig
      *
      * @param LifecycleRule $lifecycleRule
      *
-     * @throws OssException
+     * @throws Exception
      */
     public function addRule($lifecycleRule)
     {
         if ( ! isset( $lifecycleRule )) {
-            throw new OssException("lifecycleRule is null");
+            throw new Exception("lifecycleRule is null");
         }
         $this->rules[] = $lifecycleRule;
     }

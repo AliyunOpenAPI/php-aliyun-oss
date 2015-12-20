@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OSSException;
+use Aliyun\OSS\Core\Exception;
 use Aliyun\OSS\Model\LifecycleAction;
 use Aliyun\OSS\Model\LifecycleConfig;
 use Aliyun\OSS\Model\LifecycleRule;
@@ -22,7 +22,7 @@ class OSSClientBucketLifecycleTest extends TestOSSClientBase
 
         try {
             $this->ossClient->putBucketLifecycle($this->bucket, $lifecycleConfig);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertTrue(false);
         }
 
@@ -30,13 +30,13 @@ class OSSClientBucketLifecycleTest extends TestOSSClientBase
             sleep(5);
             $lifecycleConfig2 = $this->ossClient->getBucketLifecycle($this->bucket);
             $this->assertEquals($lifecycleConfig->serializeToXml(), $lifecycleConfig2->serializeToXml());
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertTrue(false);
         }
 
         try {
             $this->ossClient->deleteBucketLifecycle($this->bucket);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertTrue(false);
         }
 
@@ -44,7 +44,7 @@ class OSSClientBucketLifecycleTest extends TestOSSClientBase
             sleep(3);
             $lifecycleConfig3 = $this->ossClient->getBucketLifecycle($this->bucket);
             $this->assertNotEquals($lifecycleConfig->serializeToXml(), $lifecycleConfig3->serializeToXml());
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
             $this->assertTrue(false);
         }
 

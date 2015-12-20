@@ -1,6 +1,6 @@
 <?php namespace Aliyun\OSS\Test;
 
-use Aliyun\OSS\Core\OSSException;
+use Aliyun\OSS\Core\Exception;
 use Aliyun\OSS\Http\ResponseCore;
 use Aliyun\OSS\Result\ExistResult;
 
@@ -31,7 +31,7 @@ class ExistResultTest extends \PHPUnit_Framework_TestCase
         try {
             new ExistResult($response);
             $this->assertTrue(false);
-        } catch (OSSException $e) {
+        } catch (Exception $e) {
 
         }
     }
