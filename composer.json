@@ -1,5 +1,5 @@
 {
-  "name": "aliyuncs/oss-sdk-php",
+  "name": "lokielse/aliyun-oss",
   "description": "Aliyun OSS SDK for PHP",
   "keywords": [
     "aliyun",
@@ -7,7 +7,7 @@
     "php",
     "sdk"
   ],
-  "homepage": "https://github.com/aliyun/aliyun-oss-php-sdk",
+  "homepage": "https://github.com/lokielse/aliyun-oss-php-sdk",
   "type": "library",
   "license": "MIT",
   "authors": [
@@ -21,8 +21,7 @@
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0",
-    "squizlabs/php_codesniffer": "~2.3",
-    "phpdocumentor/phpdocumentor": "2.*"
+    "squizlabs/php_codesniffer": "~2.3"
   },
   "minimum-stability": "stable",
   "autoload": {
